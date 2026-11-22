@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kvíz: Socialismus, Liberalismus</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background: #f0f4f8;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 24px 16px 60px;
+        }
+
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 36px;
+            color: #0f172a;
+        }
+
+        .question {
+            background: white;
+            border-radius: 16px;
+            padding: 28px 28px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .question-header {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: #3b82f6;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .question h2 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 6px;
+            line-height: 1.45;
+        }
+
+        .note {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 18px;
+            font-style: italic;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .option {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            transition: all 0.15s ease;
+            user-select: none;
+        }
+
+        .option:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .option input {
+            margin-top: 3px;
+            transform: scale(1.15);
+            flex-shrink: 0;
+            accent-color: #3b82f6;
+        }
+
+        .option span {
+            flex: 1;
+            font-size: 0.97rem;
+        }
+
+        .option.selected {
+            border-color: #3b82f6;
+            background: #eff6ff;
+            box-shadow: 0 0 0 1px #3b82f6;
+        }
+
+        .option.correct {
+            border-color: #16a34a !important;
+            background: #f0fdf4 !important;
+            box-shadow: 0 0 0 1px #16a34a !important;
+        }
+
+        .option.wrong {
+            border-color: #dc2626 !important;
+            background: #fef2f2 !important;
+            box-shadow: 0 0 0 1px #dc2626 !important;
+        }
+
+        .highlight {
+            text-decoration: underline;
+            text-decoration-color: #3b82f6;
+            text-underline-offset: 3px;
+            font-weight: 600;
+        }
+
+        .btn-row {
+            text-align: center;
+            margin: 40px 0 20px;
+        }
+
+        button {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 1.05rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-weight: 500;
+        }
+
+        button:hover {
+            background: #1e293b;
+        }
+
+        #result {
+            display: none;
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+            border: 1px solid #e2e8f0;
+            margin-top: 20px;
+        }
+
+        .score {
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Kvíz: Socialismus a Liberalismus</h1>
+
+    <!-- 1 -->
+    <div class="question" data-type="single" data-correct="2">
+        <div class="question-header">Otázka 1 • Hodnoty socialismu</div>
+        <h2>Co z níže uvedeného <span class="highlight">nepatří</span> mezi hodnoty socialismu?</h2>
+        <div class="options">
+            <label class="option"><input type="radio" name="q1" value="0"><span>Majetková rovnost</span></label>
+            <label class="option"><input type="radio" name="q1" value="1"><span>Společnost a kolektiv</span></label>
+            <label class="option"><input type="radio" name="q1" value="2"><span>Individualismus</span></label>
+            <label class="option"><input type="radio" name="q1" value="3"><span>Společenské vlastnictví</span></label>
+        </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="question" data-type="multi" data-correct="0,4" data-points="0.5" data-max="2">
+        <div class="question-header">Otázka 2 • Socialismus</div>
+        <h2>Kdo všechno nabyl v očích <span class="highlight">socialisty</span> peníze oprávněně?</h2>
+        <div class="note">(pozor: 2 správné možnosti)</div>
+        <div class="options">
+            <label class="option"><input type="checkbox" name="q2" value="0"><span>Franta si tento měsíc tvrdou prací v továrně vydělal 40 tisíc korun</span></label>
+            <label class="option"><input type="checkbox" name="q2" value="1"><span>Banka poskytla panu Novákovi půjčku s úrokem 10 procent ročně. Celkově pak na úrocích z jeho dluhu vydělala 10 tisíc korun.</span></label>
+            <label class="option"><input type="checkbox" name="q2" value="2"><span>Firma už tak bohatého podnikatele XY dostala letos 20 milionů korun na dotacích</span></label>
+            <label class="option"><input type="checkbox" name="q2" value="3"><span>Pepa Rockefeller zdědil 100 milionů dolarů po svém strýci</span></label>
+            <label class="option"><input type="checkbox" name="q2" value="4"><span>Matka samoživitelka dostala od státu štědrou podporu financovanou z progresivní daně</span></label>
+        </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="question" data-type="multi" data-correct="0,1,3,4" data-points="0.25" data-max="4">
+        <div class="question-header">Otázka 3 • Klasický liberalismus</div>
+        <h2>Stejná otázka: akorát tentokrát z pohledu <span class="highlight">klasického liberála</span>. Kdo všechno nabyl z pohledu klasického liberála peníze oprávněně?</h2>
+        <div class="note">(pozor: 4 správné možnosti)</div>
+        <div class="options">
+            <label class="option"><input type="checkbox" name="q3" value="0"><span>Franta si tento měsíc tvrdou prací v továrně vydělal 40 tisíc korun</span></label>
+            <label class="option"><input type="checkbox" name="q3" value="1"><span>Banka poskytla panu Novákovi půjčku s úrokem 10 procent ročně. Celkově pak na úrocích z jeho dluhu vydělala 10 tisíc korun.</span></label>
+            <label class="option"><input type="checkbox" name="q3" value="2"><span>Firma už tak bohatého podnikatele XY dostala letos 20 milionů korun na dotacích</span></label>
+            <label class="option"><input type="checkbox" name="q3" value="3"><span>Pepa Rockefeller zdědil 100 milionů dolarů po svém strýci</span></label>
+            <label class="option"><input type="checkbox" name="q3" value="4"><span>Ředitel firmy Metalurgus letos vydělal 10 milionů, přestože zaměstnancům platí mnohem méně</span></label>
+            <label class="option"><input type="checkbox" name="q3" value="5"><span>Matka samoživitelka dostala od státu štědrou podporu financovanou z progresivní daně</span></label>
+        </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="question" data-type="single" data-correct="1">
+        <div class="question-header">Otázka 4 • Socialismus a lidská přirozenost</div>
+        <h2>Co z níže uvedeného zastávají socialisté?</h2>
+        <div class="options">
+            <label class="option"><input type="radio" name="q4" value="0"><span>Člověk je v kapitalismu zkažený soukromým vlastnictvím a nelze jej změnit</span></label>
+            <label class="option"><input type="radio" name="q4" value="1"><span>Člověk je v kapitalismu zkažený soukromým vlastnictvím, ale lze ho změnit</span></label>
+            <label class="option"><input type="radio" name="q4" value="2"><span>Člověk je od přirozenosti dobrý a tak se chová i teď v kapitalismu</span></label>
+        </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="question" data-type="single" data-correct="1">
+        <div class="question-header">Otázka 5 • Svoboda</div>
+        <h2>Jaký typ svobody popisuje tato věta: „Skutečně svobodný jsem jen tehdy, pokud mám reálnou možnost uskutečnit své cíle. Mám tedy například dost prostředků na to, abych mohl cestovat“</h2>
+        <div class="options">
+            <label class="option"><input type="radio" name="q5" value="0"><span>Negativní svobodu</span></label>
+            <label class="option"><input type="radio" name="q5" value="1"><span>Pozitivní svobodu</span></label>
+            <label class="option"><input type="radio" name="q5" value="2"><span>Politickou svobodu</span></label>
+            <label class="option"><input type="radio" name="q5" value="3"><span>Náboženskou svobodu</span></label>
+        </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="question" data-type="single" data-correct="3">
+        <div class="question-header">Otázka 6 • Sociální demokracie a komunismus</div>
+        <h2>Jak se liší sociální demokraté od komunistů?</h2>
+        <div class="options">
+            <label class="option"><input type="radio" name="q6" value="0"><span>Sociální demokracie zcela opouští hodnotu kolektivu a zaměřuje se na jednotlivce</span></label>
+            <label class="option"><input type="radio" name="q6" value="1"><span>Komunismus usiluje o zachování tržního hospodářství, sociální demokracie ho chce zcela zrušit</span></label>
+            <label class="option"><input type="radio" name="q6" value="2"><span>Komunismus odmítá kolektivní vlastnictví, zatímco sociální demokracie ho striktně vyžaduje pro všechny sektory ekonomiky</span></label>
+            <label class="option"><input type="radio" name="q6" value="3"><span>Sociální demokracie usiluje o dosažení sociální spravedlnosti v rámci demokracie, zatímco komunismus prosazuje revoluční cestu</span></label>
+        </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="question" data-type="single" data-correct="2">
+        <div class="question-header">Otázka 7 • Smíšená ekonomika</div>
+        <h2>Sociální demokraté prosazují „smíšenou ekonomiku“. Co je tím myšleno?</h2>
+        <div class="options">
+            <label class="option"><input type="radio" name="q7" value="0"><span>Chtějí plně znárodnit všechny podniky a zcela zrušit soukromý sektor</span></label>
+            <label class="option"><input type="radio" name="q7" value="1"><span>Usilují o privatizaci veřejných služeb</span></label>
+            <label class="option"><input type="radio" name="q7" value="2"><span>Prosazují tržní hospodářství s výrazným státním sektorem a přerozdělováním bohatství</span></label>
+            <label class="option"><input type="radio" name="q7" value="3"><span>Prosazují návrat ke středověkému cechovnímu systému</span></label>
+        </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="question" data-type="single" data-correct="1">
+        <div class="question-header">Otázka 8 • Vykořisťování</div>
+        <h2>V čem podle marxistů spočívá vykořisťování v kapitalismu?</h2>
+        <div class="options">
+            <label class="option"><input type="radio" name="q8" value="0"><span>V tom, že kapitalisté nutí dělníky pracovat zdarma bez finanční odměny</span></label>
+            <label class="option"><input type="radio" name="q8" value="1"><span>V tom, že si kapitalista přivlastňuje velkou část práce dělníka a jemu samotnému platí jen minimální mzdu</span></label>
+            <label class="option"><input type="radio" name="q8" value="2"><span>V tom, že stát zavedl příliš velké daně, které obírají vlastníky firem o většinu jejich zisku</span></label>
+            <label class="option"><input type="radio" name="q8" value="3"><span>V tom, že zákazníci na volném trhu platí za zboží nižší cenu, než jsou reálné výrobní náklady</span></label>
+        </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="question" data-type="multi" data-correct="1,4" data-points="0.5" data-max="2">
+        <div class="question-header">Otázka 9 • Klasický liberalismus a státní zásahy</div>
+        <h2>V kterých z těchto případů by měl podle <span class="highlight">klasického liberála</span> zasáhnout stát a danému člověku v jeho činnosti zabránit?</h2>
+        <div class="note">(pozor: 2 správné možnosti)</div>
+        <div class="options">
+            <label class="option"><input type="checkbox" name="q9" value="0"><span>Nakladatelství ABC se rozhodlo vydat Mein Kampf</span></label>
+            <label class="option"><input type="checkbox" name="q9" value="1"><span>Franta se rozhodl zabít svého souseda Pepu, protože ho nenávidí</span></label>
+            <label class="option"><input type="checkbox" name="q9" value="2"><span>Rodina se rozhodla naporcovat a sníst svého psa, kterého našla mrtvého na silnici před domem</span></label>
+            <label class="option"><input type="checkbox" name="q9" value="3"><span>Homosexuálové se i přes nelibost většiny místních rozhodli uspořádat v Brně Pride pochod</span></label>
+            <label class="option"><input type="checkbox" name="q9" value="4"><span>Členové církve se s odkazem na své náboženské přesvědčení rozhodli bránit ostatním lidem pracovat v neděli</span></label>
+            <label class="option"><input type="checkbox" name="q9" value="5"><span>Žaneta si od dealera koupila vysoce návykovou drogu a hodlá si vzít dávku</span></label>
+        </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="question" data-type="single" data-correct="0">
+        <div class="question-header">Otázka 10 • Klasický liberalismus a demokracie</div>
+        <h2>Historicky se ukázalo, že demokracie vede k odklonu od (čistého) klasického liberalismu</h2>
+        <div class="options">
+            <label class="option"><input type="radio" name="q10" value="0"><span>Ano</span></label>
+            <label class="option"><input type="radio" name="q10" value="1"><span>Ne</span></label>
+        </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="question" data-type="single" data-correct="1">
+        <div class="question-header">Otázka 11 • Moderní liberalismus</div>
+        <h2>Moderní liberálové jsou zastánci rovnosti příležitostí. Která z níže uvedených situací ji vystihuje:</h2>
+        <div class="options">
+            <label class="option"><input type="radio" name="q11" value="0"><span>Všichni lidé dostávají stejný plat bez ohledu na vzdělání a pracovní výkon</span></label>
+            <label class="option"><input type="radio" name="q11" value="1"><span>Všichni lidé dostanou stejnou možnost získat kvalitní vzdělání bez ohledu na majetek a původ</span></label>
+            <label class="option"><input type="radio" name="q11" value="2"><span>Lidé s vyššími příjmy budou mít méně pracovních příležitostí</span></label>
+            <label class="option"><input type="radio" name="q11" value="3"><span>Stát nebude bránit žádné rodině zaplatit svým dětem soukromou školu, ale ani financovat vzdělání dětí z chudších rodin</span></label>
+        </div>
+    </div>
+
+    <div class="btn-row">
+        <button onclick="evaluateQuiz()">Vyhodnotit kvíz</button>
+    </div>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    // Omezení počtu zaškrtnutých možností u multi-select
+    document.querySelectorAll('.question[data-type="multi"]').forEach(question => {
+        const max = parseInt(question.dataset.max);
+        const checkboxes = question.querySelectorAll('input[type="checkbox"]');
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const checked = question.querySelectorAll('input[type="checkbox"]:checked');
+                
+                if (checked.length > max) {
+                    this.checked = false; // zruší poslední zaškrtnutí
+                    this.closest('.option').classList.remove('selected');
+                }
+            });
+        });
+    });
+
+    // Vizuální označení selected
+    document.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', function(e) {
+            if (e.target.tagName === 'INPUT') return;
+            
+            const input = this.querySelector('input');
+            
+            if (input.type === 'radio') {
+                document.querySelectorAll(`input[name="${input.name}"]`).forEach(r => {
+                    r.closest('.option').classList.remove('selected');
+                });
+                input.checked = true;
+                this.classList.add('selected');
+            } else {
+                // U checkboxů necháme nativní chování + omezení výše
+                // Jen aktualizujeme třídu
+                setTimeout(() => {
+                    this.classList.toggle('selected', input.checked);
+                }, 10);
+            }
+        });
+    });
+
+    function evaluateQuiz() {
+        let score = 0;
+        const total = 11;
+        const questions = document.querySelectorAll('.question');
+
+        questions.forEach((q) => {
+            const type = q.dataset.type;
+            const correct = q.dataset.correct.split(',').map(Number);
+            const pointsPerCorrect = parseFloat(q.dataset.points) || 1;
+            const inputs = q.querySelectorAll('input');
+            let selected = [];
+
+            inputs.forEach(inp => {
+                const opt = inp.closest('.option');
+                opt.classList.remove('correct', 'wrong', 'selected');
+                if (inp.checked) selected.push(Number(inp.value));
+            });
+
+            if (type === 'single') {
+                if (selected.length === 1 && correct.includes(selected[0])) {
+                    score += 1;
+                }
+            } else {
+                let correctSelected = 0;
+                selected.forEach(val => {
+                    if (correct.includes(val)) correctSelected++;
+                });
+                score += correctSelected * pointsPerCorrect;
+            }
+
+            // Vizuální označení správných/špatných
+            inputs.forEach(inp => {
+                const val = Number(inp.value);
+                const opt = inp.closest('.option');
+                if (correct.includes(val)) {
+                    opt.classList.add('correct');
+                } else if (inp.checked) {
+                    opt.classList.add('wrong');
+                }
+            });
+        });
+
+        score = Math.round(score * 100) / 100;
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = `
+            <div style="font-size:1.1rem; color:#64748b;">Výsledek</div>
+            <div class="score">${score} / ${total}</div>
+        `;
+        resultDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>
